@@ -1,5 +1,5 @@
 
-int seed = 650;
+int seed = 700;
 
 volatile int rate[10];                    // array to hold last ten IPI values
 volatile unsigned long sampleCounter = 0;          // used to determine pulse timing

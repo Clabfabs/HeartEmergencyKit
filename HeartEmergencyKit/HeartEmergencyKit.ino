@@ -23,6 +23,9 @@ int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int bluetoothTx = 10;
 int bluetoothRx = 11;
 boolean wearing = false;
+boolean emergency_low = false;
+boolean emergency_high = false;
+
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
