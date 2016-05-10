@@ -42,9 +42,11 @@ SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 void setup() {
   pinMode(blinkPin, OUTPUT);        // pin that will blink to your heartbeat!
   pinMode(fadePin, OUTPUT);         // pin that will fade to your heartbeat!
+
+  pinMode(2, INPUT);
   Serial.begin(115200);             // we agree to talk fast!
   bluetooth.begin(115200);
-  interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS
+  // interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS
   // IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE,
   // UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
   //   analogReference(EXTERNAL);
@@ -54,22 +56,27 @@ void setup() {
 //  Where the Magic Happens
 void loop() {
 
-  serialOutput() ;
 
-  if (QS == true) {    // A Heartbeat Was Found
-    // BPM and IPI have been Determined
-    // Quantified Self "QS" true when arduino finds a heartbeat
-    fadeRate = 255;         // Makes the LED Fade Effect Happen
-    // Set 'fadeRate' Variable to 255 to fade LED with pulse
-    serialOutputWhenBeatHappens();   // A Beat Happened, Output that to serial.
-    QS = false;                      // reset the Quantified Self flag for next time
+  if (digitalRead(2) == HIGH) {
+    bluetooth.println("Pressed");
+    delay(1000);
   }
-
-
-
-  ledFadeToBeat();                      // Makes the LED Fade Effect Happen
-  checkEmergency();
-  delay(20);                             //  take a break
+//  serialOutput() ;
+//
+//  if (QS == true) {    // A Heartbeat Was Found
+//    // BPM and IPI have been Determined
+//    // Quantified Self "QS" true when arduino finds a heartbeat
+//    fadeRate = 255;         // Makes the LED Fade Effect Happen
+//    // Set 'fadeRate' Variable to 255 to fade LED with pulse
+//    serialOutputWhenBeatHappens();   // A Beat Happened, Output that to serial.
+//    QS = false;                      // reset the Quantified Self flag for next time
+//  }
+//
+//
+//
+//  ledFadeToBeat();                      // Makes the LED Fade Effect Happen
+//  checkEmergency();
+//  delay(20);                             //  take a break
 }
 
 
