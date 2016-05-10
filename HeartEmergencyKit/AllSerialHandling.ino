@@ -25,6 +25,8 @@ void serialOutputWhenBeatHappens() {
     sendDataToSerial('B', BPM);  // send heart rate with a 'B' prefix
     sendDataToSerial('Q', IPI);  // send time between beats with a 'Q' prefix
   }
+  sendBluetoothData('B', BPM);
+
 }
 
 
@@ -34,6 +36,13 @@ void sendDataToSerial(char symbol, int data ) {
   Serial.print(symbol);
 
   Serial.println(data);
+}
+
+//  Sends Data to Pulse Sensor Processing App, Native Mac App, or Third-party Serial Readers.
+void sendBluetoothData(char symbol, int data ) {
+  bluetooth.print(symbol);
+
+  bluetooth.println(data);
 }
 
 
