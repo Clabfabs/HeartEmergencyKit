@@ -16,10 +16,12 @@
 #include <SoftwareSerial.h>
 
 //  Variables
+int sending = false;
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
 int blinkPin = 13;                // pin to blink led at each beat
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
+int buttonPin = 2;
 int bluetoothTx = 10;
 int bluetoothRx = 11;
 boolean wearing = true;
@@ -40,11 +42,14 @@ static boolean serialVisual = true;   // Set to 'false' by Default.  Re-set to '
 SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 
 void setup() {
-  pinMode(blinkPin, OUTPUT);        // pin that will blink to your heartbeat!
-  pinMode(fadePin, OUTPUT);         // pin that will fade to your heartbeat!
-  Serial.begin(115200);             // we agree to talk fast!
+  
   bluetooth.begin(115200);
-  interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS
+  Serial.begin(115200);             // we agree to talk fast!
+  pinMode(buttonPin, INPUT);
+
+//  pinMode(blinkPin, OUTPUT);        // pin that will blink to your heartbeat!
+//  pinMode(fadePin, OUTPUT);         // pin that will fade to your heartbeat!
+//  interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS
   // IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE,
   // UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
   //   analogReference(EXTERNAL);
@@ -53,23 +58,40 @@ void setup() {
 
 //  Where the Magic Happens
 void loop() {
-
-  serialOutput() ;
-
-  if (QS == true) {    // A Heartbeat Was Found
-    // BPM and IPI have been Determined
-    // Quantified Self "QS" true when arduino finds a heartbeat
-    fadeRate = 255;         // Makes the LED Fade Effect Happen
-    // Set 'fadeRate' Variable to 255 to fade LED with pulse
-    serialOutputWhenBeatHappens();   // A Beat Happened, Output that to serial.
-    QS = false;                      // reset the Quantified Self flag for next time
+  if (digitalRead(buttonPin) == HIGH && sending == false) {
+    sending = true;
+    bluetooth.print('B');
+    bluetooth.print(random(20, 150));
+    bluetooth.print('#');
+    Serial.print('B');
+    Serial.print(random(20, 150));
+    Serial.print('#');
   }
 
+  if (digitalRead(buttonPin) == LOW && sending == true) {
+    sending = false;
+  }
 
+  while (bluetooth.available() > 0) {
+    Serial.print(bluetooth.read());
+  }
 
-  ledFadeToBeat();                      // Makes the LED Fade Effect Happen
-  checkEmergency();
-  delay(20);                             //  take a break
+//  serialOutput() ;
+
+//  if (QS == true) {    // A Heartbeat Was Found
+//    // BPM and IPI have been Determined
+//    // Quantified Self "QS" true when arduino finds a heartbeat
+//    fadeRate = 255;         // Makes the LED Fade Effect Happen
+//    // Set 'fadeRate' Variable to 255 to fade LED with pulse
+//    serialOutputWhenBeatHappens();   // A Beat Happened, Output that to serial.
+//    QS = false;                      // reset the Quantified Self flag for next time
+//  }
+//
+//
+//
+//  ledFadeToBeat();                      // Makes the LED Fade Effect Happen
+//  checkEmergency();
+//  delay(20);                             //  take a break
 }
 
 
