@@ -21,12 +21,12 @@ int blinkPin = 13;                // pin to blink led at each beat
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int button = 6;
-int pressed = 0;
+boolean pressed = false;
 
 
 int bluetoothTx = 10;
 int bluetoothRx = 11;
-boolean wearing = true;
+boolean wearing = false;
 boolean emergency_low = false;
 boolean emergency_high = false;
 
@@ -46,7 +46,7 @@ SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 void setup() {
   pinMode(blinkPin, OUTPUT);        // pin that will blink to your heartbeat!
   pinMode(fadePin, OUTPUT);         // pin that will fade to your heartbeat!
-  pinMode(button,INPUT);
+  pinMode(button, INPUT);
 
   Serial.begin(115200);             // we agree to talk fast!
   bluetooth.begin(115200);
@@ -75,14 +75,21 @@ void loop() {
 
   ledFadeToBeat();                      // Makes the LED Fade Effect Happen'
   
-  // is button pressed?
-      pressed = digitalRead(button);
-      
-      // Detect touchbutton pressed.      
-      if (pressed == 1) {
+  // Detect touchbutton pressed.      
+  if (digitalRead(button) == HIGH) {
+    if (!pressed) {
+      if (wearing == true) {
+        wearing = false;
+      } else if (wearing == false) {
         wearing = true;
-       checkEmergency();
       }
+      pressed = true;
+    }
+  } else if (digitalRead(button) == LOW && pressed == true) {
+    pressed = false;
+  }
+
+  checkEmergency();
   delay(20);                             //  take a break
 }
 
