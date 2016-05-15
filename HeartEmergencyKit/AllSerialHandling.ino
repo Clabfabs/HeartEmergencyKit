@@ -42,7 +42,8 @@ void sendDataToSerial(char symbol, int data ) {
 void sendBluetoothData(char symbol, int data ) {
   bluetooth.print(symbol);
 
-  bluetooth.println(data);
+  bluetooth.print(data);
+  bluetooth.print('#');
 }
 
 
