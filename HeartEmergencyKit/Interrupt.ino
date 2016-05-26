@@ -52,7 +52,6 @@ ISR(TIMER2_COMPA_vect) {                        // triggered when Timer2 counts 
 
       if (secondBeat) {                      // if this is the second beat, if secondBeat == TRUE
         secondBeat = false;                  // clear secondBeat flag
-        wearing = true;
         for (int i = 0; i <= 9; i++) {       // seed the running total to get a realisitic BPM at startup
           rate[i] = IPI;
         }
@@ -100,7 +99,6 @@ ISR(TIMER2_COMPA_vect) {                        // triggered when Timer2 counts 
     lastBeatTime = sampleCounter;          // bring the lastBeatTime up to date
     firstBeat = true;                      // set these to avoid noise
     secondBeat = false;                    // when we get the heartbeat back
-    wearing = false;
   }
 
   sei();                                   // enable interrupts when youre done!
