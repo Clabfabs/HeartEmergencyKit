@@ -24,7 +24,7 @@ Pre-requisites
 --------------
 
 - Arduino Uno board
-- Sensors/Actuators: [Pulse sensor](http://pulsesensor.com/), [Bluetooth sensor](https://www.sparkfun.com/products/12577), Button
+- Sensors/Actuators: [Pulse sensor](http://pulsesensor.com/), [Bluetooth sensor](https://www.sparkfun.com/products/12577), Button, LED
 
 Getting Started
 ---------------
@@ -33,4 +33,5 @@ Connect the sensors on the following pins:
 - Pulse Sensor: Analog 0
 - Bluetooth Sensor: Digital 10 (Tx), Digital 11 (Rx)
 - Button: Digital 6
+- LED: Digital 8
 
