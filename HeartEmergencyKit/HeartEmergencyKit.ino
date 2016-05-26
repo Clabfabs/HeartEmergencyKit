@@ -94,8 +94,6 @@ void loop() {
     pressed = false;
 
   }
-  Serial.println(wearing);
-  Serial.println(pressed);
   checkEmergency();
   delay(20);                             //  take a break
 }
