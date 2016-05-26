@@ -6,7 +6,7 @@
 /////////
 
 int LOWER_THRESHOLD = 40;
-int UPPER_THRESHOLD = 100;
+int UPPER_THRESHOLD = 120;
 
 void checkEmergency() {
   if (wearing) {
