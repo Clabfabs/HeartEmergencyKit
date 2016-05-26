@@ -18,7 +18,7 @@ If the Android application is connected to the device, it will constantly receiv
 
 Basis
 -----
-This code is based on the [example code](https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino) of the pulse sensor by [WorldFamousElectronics](https://github.com/WorldFamousElectronics) [android-BluetoothChat](https://github.com/googlesamples/android-BluetoothChat), which brings most of the heart rate specific functionality.
+This code is based on the [example code](https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino) of the pulse sensor by [WorldFamousElectronics](https://github.com/WorldFamousElectronics), which brings most of the heart rate specific functionality.
 
 Pre-requisites
 --------------
